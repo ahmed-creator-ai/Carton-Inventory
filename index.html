@@ -1,0 +1,2291 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carton 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+    <h1>Carton 2</h1>
+    <p>Client & Carton Management</p>
+</header>
+
+<nav class="tabs">
+    <button class="tab-button active" onclick="showPage('dashboard')">Dashboard</button>
+    <button class="tab-button" onclick="showPage('clients')">Clients</button>
+    <button class="tab-button" onclick="showPage('cartons')">Cartons</button>
+    <button class="tab-button" onclick="showPage('stock')">Stock</button>
+</nav>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section id="dashboard" class="page active-page">
+
+    <h2>Dashboard</h2>
+
+    <div class="dashboard-cards">
+
+        <div class="card">
+            <h3>Total Clients</h3>
+            <p id="totalClients">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Cartons</h3>
+            <p id="totalCartons">0</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CLIENTS ================= -->
+
+<section id="clients" class="page">
+
+    <h2>Clients</h2>
+
+
+    <!-- ADD CLIENT -->
+
+    <div class="form-box">
+
+        <h3>Add Client</h3>
+
+        <label>Client Name</label>
+
+        <input
+            type="text"
+            id="clientName"
+            placeholder="Enter client name"
+        >
+
+
+        <label>Phone Number</label>
+
+        <input
+            type="tel"
+            id="clientPhone"
+            placeholder="Enter phone number"
+        >
+
+
+        <button onclick="addClient()">
+            Add Client
+        </button>
+
+    </div>
+
+
+    <!-- ADD CARTONS TO CLIENT -->
+
+    <div class="form-box" id="giveCartonsBox">
+
+        <h3>Add Cartons To Client</h3>
+
+
+        <label>Select Client</label>
+
+        <select id="clientSelect">
+
+            <option value="">
+                Select a client
+            </option>
+
+        </select>
+
+
+        <label>Select Carton</label>
+
+        <select id="clientCartonSelect">
+
+            <option value="">
+                Select a carton
+            </option>
+
+        </select>
+
+
+        <label>Price Per Carton For This Order</label>
+
+        <input
+            type="number"
+            id="clientCartonPrice"
+            min="0"
+            placeholder="Enter price"
+        >
+
+
+        <label>Number Of Cartons To Add</label>
+
+        <input
+            type="number"
+            id="clientCartonAmount"
+            min="1"
+            placeholder="Enter amount"
+        >
+
+
+        <label>Money Paid For This Order</label>
+
+        <input
+            type="number"
+            id="clientMoneyPaid"
+            min="0"
+            placeholder="Enter amount paid"
+        >
+
+
+        <label>Order Date</label>
+
+        <input
+            type="date"
+            id="cartonDate"
+        >
+
+
+        <button onclick="giveCartons()">
+            Add Cartons
+        </button>
+
+    </div>
+
+
+    <!-- CLIENT DATA -->
+
+    <div id="clientList"></div>
+
+</section>
+
+
+
+<!-- ================= CARTONS ================= -->
+
+<section id="cartons" class="page">
+
+    <h2>Cartons</h2>
+
+
+    <div class="form-box">
+
+        <h3>Add Carton Type</h3>
+
+
+        <label>Carton Name</label>
+
+        <input
+            type="text"
+            id="cartonType"
+            placeholder="Example: Coffee"
+        >
+
+
+        <label>Total Cartons</label>
+
+        <input
+            type="number"
+            id="cartonAmount"
+            min="1"
+            placeholder="Enter total cartons"
+        >
+
+
+        <button onclick="addCarton()">
+            Add Carton Type
+        </button>
+
+    </div>
+
+
+    <div id="cartonList"></div>
+
+</section>
+
+
+
+<!-- ================= STOCK ================= -->
+
+<section id="stock" class="page">
+
+    <h2>Stock</h2>
+
+
+    <div class="card stock-total-card">
+
+        <h3>Total Remaining Cartons</h3>
+
+        <p id="stockTotalCartons">
+            0
+        </p>
+
+    </div>
+
+
+    <div id="stockList"></div>
+
+</section>
+
+
+
+<script>
+
+/* =================================================
+   DATA
+================================================= */
+
+let clients = [];
+
+let cartons = [];
+
+let sales = [];
+
+
+
+/* =================================================
+   LOAD DATA
+================================================= */
+
+function loadData() {
+
+    try {
+
+        const savedClients =
+            localStorage.getItem("carton2_clients");
+
+        const savedCartons =
+            localStorage.getItem("carton2_cartons");
+
+        const savedSales =
+            localStorage.getItem("carton2_sales");
+
+
+        if (savedClients) {
+
+            clients =
+                JSON.parse(savedClients);
+
+        }
+
+
+        if (savedCartons) {
+
+            cartons =
+                JSON.parse(savedCartons);
+
+        }
+
+
+        if (savedSales) {
+
+            sales =
+                JSON.parse(savedSales);
+
+        }
+
+
+        /*
+            Make old data compatible
+        */
+
+        clients.forEach(client => {
+
+            if (client.phone === undefined) {
+
+                client.phone = "";
+
+            }
+
+        });
+
+
+        cartons.forEach(carton => {
+
+            if (carton.amount === undefined) {
+
+                carton.amount = 0;
+
+            }
+
+        });
+
+
+        sales.forEach(sale => {
+
+            if (sale.amount === undefined) {
+
+                sale.amount = 0;
+
+            }
+
+
+            if (sale.priceAtSale === undefined) {
+
+                sale.priceAtSale = 0;
+
+            }
+
+
+            if (sale.moneyPaid === undefined) {
+
+                sale.moneyPaid = 0;
+
+            }
+
+
+            if (sale.date === undefined) {
+
+                sale.date = "";
+
+            }
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Could not load saved data:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =================================================
+   SAVE DATA
+================================================= */
+
+function saveData() {
+
+    localStorage.setItem(
+        "carton2_clients",
+        JSON.stringify(clients)
+    );
+
+
+    localStorage.setItem(
+        "carton2_cartons",
+        JSON.stringify(cartons)
+    );
+
+
+    localStorage.setItem(
+        "carton2_sales",
+        JSON.stringify(sales)
+    );
+
+}
+
+
+
+/* =================================================
+   HELPERS
+================================================= */
+
+function formatNumber(number) {
+
+    return Number(number || 0)
+        .toLocaleString("en-US");
+
+}
+
+
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+
+        return "No date";
+
+    }
+
+
+    const parts =
+        dateString.split("-");
+
+
+    if (parts.length !== 3) {
+
+        return dateString;
+
+    }
+
+
+    return (
+        parts[2] +
+        "/" +
+        parts[1] +
+        "/" +
+        parts[0]
+    );
+
+}
+
+
+
+function getSoldAmount(cartonId) {
+
+    return sales
+
+        .filter(
+            sale =>
+                Number(sale.cartonId) ===
+                Number(cartonId)
+        )
+
+        .reduce(
+            (total, sale) =>
+                total +
+                Number(sale.amount || 0),
+
+            0
+        );
+
+}
+
+
+
+function getClientSales(clientId) {
+
+    return sales.filter(
+
+        sale =>
+            Number(sale.clientId) ===
+            Number(clientId)
+
+    );
+
+}
+
+
+
+/* =================================================
+   PAGE SWITCHING
+================================================= */
+
+function showPage(pageId) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
+
+            page.classList.remove(
+                "active-page"
+            );
+
+        });
+
+
+    document
+        .querySelectorAll(".tab-button")
+        .forEach(button => {
+
+            button.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    const page =
+        document.getElementById(pageId);
+
+
+    if (page) {
+
+        page.classList.add(
+            "active-page"
+        );
+
+    }
+
+
+    document
+        .querySelectorAll(".tab-button")
+        .forEach(button => {
+
+            if (
+                button.getAttribute("onclick") ===
+                "showPage('" + pageId + "')"
+            ) {
+
+                button.classList.add(
+                    "active"
+                );
+
+            }
+
+        });
+
+}
+
+
+
+/* =================================================
+   DASHBOARD
+================================================= */
+
+function updateDashboard() {
+
+    document.getElementById(
+        "totalClients"
+    ).textContent =
+
+        formatNumber(
+            clients.length
+        );
+
+
+    const totalCartons =
+        cartons.reduce(
+
+            (total, carton) =>
+
+                total +
+                Number(
+                    carton.amount || 0
+                ),
+
+            0
+
+        );
+
+
+    document.getElementById(
+        "totalCartons"
+    ).textContent =
+
+        formatNumber(
+            totalCartons
+        );
+
+}
+
+
+
+/* =================================================
+   ADD CLIENT
+================================================= */
+
+function addClient() {
+
+    const nameInput =
+        document.getElementById(
+            "clientName"
+        );
+
+
+    const phoneInput =
+        document.getElementById(
+            "clientPhone"
+        );
+
+
+    const name =
+        nameInput.value.trim();
+
+
+    const phone =
+        phoneInput.value.trim();
+
+
+    if (!name) {
+
+        alert(
+            "Please enter a client name."
+        );
+
+        return;
+
+    }
+
+
+    clients.push({
+
+        id: Date.now(),
+
+        name: name,
+
+        phone: phone
+
+    });
+
+
+    nameInput.value = "";
+
+    phoneInput.value = "";
+
+
+    saveData();
+
+
+    displayClients();
+
+    updateClientDropdown();
+
+    updateDashboard();
+
+}
+
+
+
+/* =================================================
+   DISPLAY CLIENTS
+================================================= */
+
+function displayClients() {
+
+    const list =
+        document.getElementById(
+            "clientList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    if (clients.length === 0) {
+
+        list.innerHTML = `
+
+            <div class="empty-stock">
+
+                <p>
+                    No clients added yet.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    clients.forEach(client => {
+
+
+        const clientSales =
+            getClientSales(
+                client.id
+            );
+
+
+
+        /*
+            OVERALL CLIENT TOTALS
+        */
+
+        const totalCartons =
+            clientSales.reduce(
+
+                (total, sale) =>
+
+                    total +
+                    Number(
+                        sale.amount || 0
+                    ),
+
+                0
+
+            );
+
+
+
+        const totalValue =
+            clientSales.reduce(
+
+                (total, sale) =>
+
+                    total +
+
+                    (
+                        Number(
+                            sale.amount || 0
+                        )
+
+                        *
+
+                        Number(
+                            sale.priceAtSale || 0
+                        )
+                    ),
+
+                0
+
+            );
+
+
+
+        const totalPaid =
+            clientSales.reduce(
+
+                (total, sale) =>
+
+                    total +
+                    Number(
+                        sale.moneyPaid || 0
+                    ),
+
+                0
+
+            );
+
+
+
+        const totalDue =
+            totalValue -
+            totalPaid;
+
+
+
+        const box =
+            document.createElement(
+                "div"
+            );
+
+
+        box.className =
+            "item-box";
+
+
+
+        /*
+            TRANSACTION HISTORY
+        */
+
+        let salesHTML = "";
+
+
+
+        if (clientSales.length === 0) {
+
+            salesHTML = `
+
+                <p>
+                    No cartons given to this client yet.
+                </p>
+
+            `;
+
+        }
+
+        else {
+
+            salesHTML =
+
+                clientSales
+
+                    .map(sale => {
+
+
+                        const carton =
+                            cartons.find(
+
+                                c =>
+                                    Number(c.id) ===
+                                    Number(
+                                        sale.cartonId
+                                    )
+
+                            );
+
+
+                        const cartonName =
+                            carton
+
+                                ? carton.name
+
+                                : "Deleted carton";
+
+
+
+                        const orderTotal =
+
+                            Number(
+                                sale.amount || 0
+                            )
+
+                            *
+
+                            Number(
+                                sale.priceAtSale || 0
+                            );
+
+
+
+                        const paid =
+
+                            Number(
+                                sale.moneyPaid || 0
+                            );
+
+
+
+                        const due =
+
+                            orderTotal -
+                            paid;
+
+
+
+                        return `
+
+                            <div class="sale-record">
+
+                                <h4>
+                                    ${escapeHTML(
+                                        cartonName
+                                    )}
+                                </h4>
+
+
+                                <p>
+                                    <strong>Date:</strong>
+                                    ${formatDate(
+                                        sale.date
+                                    )}
+                                </p>
+
+
+                                <p>
+                                    <strong>Cartons:</strong>
+                                    ${formatNumber(
+                                        sale.amount
+                                    )}
+                                </p>
+
+
+                                <p>
+                                    <strong>Price Per Carton:</strong>
+                                    Rs.
+                                    ${formatNumber(
+                                        sale.priceAtSale
+                                    )}
+                                </p>
+
+
+                                <p>
+                                    <strong>Total:</strong>
+                                    Rs.
+                                    ${formatNumber(
+                                        orderTotal
+                                    )}
+                                </p>
+
+
+                                <p>
+                                    <strong>Paid:</strong>
+                                    Rs.
+                                    ${formatNumber(
+                                        paid
+                                    )}
+                                </p>
+
+
+                                <p>
+                                    <strong>Due:</strong>
+                                    Rs.
+                                    ${formatNumber(
+                                        due
+                                    )}
+                                </p>
+
+
+                                <button
+                                    onclick="changeSalePayment(${sale.id})"
+                                >
+                                    Change Paid Amount
+                                </button>
+
+
+                                <button
+                                    onclick="deleteSale(${sale.id})"
+                                >
+                                    Delete Record
+                                </button>
+
+                            </div>
+
+                        `;
+
+                    })
+
+                    .join("");
+
+        }
+
+
+
+        /*
+            CLIENT BOX
+        */
+
+        box.innerHTML = `
+
+            <div>
+
+                <strong>
+                    ${escapeHTML(
+                        client.name
+                    )}
+                </strong>
+
+            </div>
+
+
+            <p>
+                Phone:
+                ${escapeHTML(
+                    client.phone ||
+                    "Not provided"
+                )}
+            </p>
+
+
+
+            <div class="client-summary">
+
+                <p>
+
+                    <strong>
+                        Total Cartons Given:
+                    </strong>
+
+                    ${formatNumber(
+                        totalCartons
+                    )}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Total Value:
+                    </strong>
+
+                    Rs.
+                    ${formatNumber(
+                        totalValue
+                    )}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Total Paid:
+                    </strong>
+
+                    Rs.
+                    ${formatNumber(
+                        totalPaid
+                    )}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Total Due:
+                    </strong>
+
+                    Rs.
+                    ${formatNumber(
+                        totalDue
+                    )}
+
+                </p>
+
+            </div>
+
+
+
+            <button
+                onclick="addMoreCartons(${client.id})"
+            >
+                Add More Cartons To This Client
+            </button>
+
+
+            <button
+                onclick="deleteClient(${client.id})"
+            >
+                Delete Client
+            </button>
+
+
+
+            <div class="client-sales">
+
+                <h4>
+                    Complete Carton History
+                </h4>
+
+                ${salesHTML}
+
+            </div>
+
+        `;
+
+
+
+        list.appendChild(box);
+
+    });
+
+}
+
+
+
+/* =================================================
+   ADD MORE CARTONS TO CLIENT
+================================================= */
+
+function addMoreCartons(clientId) {
+
+    const client =
+        clients.find(
+
+            c =>
+                Number(c.id) ===
+                Number(clientId)
+
+        );
+
+
+    if (!client) return;
+
+
+    showPage("clients");
+
+
+    document.getElementById(
+        "clientSelect"
+    ).value = client.id;
+
+
+    document
+        .getElementById(
+            "giveCartonsBox"
+        )
+        .scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "start"
+
+        });
+
+
+    document
+        .getElementById(
+            "clientCartonAmount"
+        )
+        .focus();
+
+}
+
+
+
+/* =================================================
+   GIVE CARTONS
+================================================= */
+
+function giveCartons() {
+
+    const clientId = Number(
+
+        document.getElementById(
+            "clientSelect"
+        ).value
+
+    );
+
+
+    const cartonId = Number(
+
+        document.getElementById(
+            "clientCartonSelect"
+        ).value
+
+    );
+
+
+    const price = Number(
+
+        document.getElementById(
+            "clientCartonPrice"
+        ).value
+
+    );
+
+
+    const amount = Number(
+
+        document.getElementById(
+            "clientCartonAmount"
+        ).value
+
+    );
+
+
+    const moneyPaid = Number(
+
+        document.getElementById(
+            "clientMoneyPaid"
+        ).value || 0
+
+    );
+
+
+    const date =
+
+        document.getElementById(
+            "cartonDate"
+        ).value;
+
+
+
+    if (!clientId) {
+
+        alert(
+            "Please select a client."
+        );
+
+        return;
+
+    }
+
+
+    if (!cartonId) {
+
+        alert(
+            "Please select a carton."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        isNaN(price) ||
+        price < 0
+    ) {
+
+        alert(
+            "Please enter a valid price per carton."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !Number.isInteger(amount) ||
+        amount <= 0
+    ) {
+
+        alert(
+            "Please enter a valid whole number of cartons."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        isNaN(moneyPaid) ||
+        moneyPaid < 0
+    ) {
+
+        alert(
+            "Please enter a valid amount paid."
+        );
+
+        return;
+
+    }
+
+
+    if (!date) {
+
+        alert(
+            "Please select the date."
+        );
+
+        return;
+
+    }
+
+
+
+    const client =
+        clients.find(
+
+            c =>
+                Number(c.id) ===
+                clientId
+
+        );
+
+
+    const carton =
+        cartons.find(
+
+            c =>
+                Number(c.id) ===
+                cartonId
+
+        );
+
+
+    if (!client || !carton) {
+
+        alert(
+            "Client or carton not found."
+        );
+
+        return;
+
+    }
+
+
+
+    const orderTotal =
+        amount * price;
+
+
+
+    if (moneyPaid > orderTotal) {
+
+        alert(
+            "Money paid cannot be greater than the order total."
+        );
+
+        return;
+
+    }
+
+
+
+    /*
+        CHECK STOCK
+    */
+
+    const sold =
+        getSoldAmount(
+            cartonId
+        );
+
+
+    const remaining =
+        Number(carton.amount) -
+        sold;
+
+
+
+    if (amount > remaining) {
+
+        alert(
+
+            "Not enough cartons in stock. Only " +
+
+            formatNumber(
+                remaining
+            ) +
+
+            " are available."
+
+        );
+
+        return;
+
+    }
+
+
+
+    /*
+        SAVE NEW TRANSACTION
+
+        Every order gets its own:
+        - date
+        - carton type
+        - quantity
+        - price
+        - money paid
+    */
+
+    sales.push({
+
+        id: Date.now(),
+
+        clientId: clientId,
+
+        cartonId: cartonId,
+
+        amount: amount,
+
+        priceAtSale: price,
+
+        moneyPaid: moneyPaid,
+
+        date: date
+
+    });
+
+
+
+    /*
+        CLEAR FORM
+    */
+
+    document.getElementById(
+        "clientCartonAmount"
+    ).value = "";
+
+
+    document.getElementById(
+        "clientCartonPrice"
+    ).value = "";
+
+
+    document.getElementById(
+        "clientMoneyPaid"
+    ).value = "";
+
+
+    document.getElementById(
+        "cartonDate"
+    ).value =
+        new Date()
+            .toISOString()
+            .split("T")[0];
+
+
+
+    saveData();
+
+
+    displayClients();
+
+    displayCartons();
+
+    displayStock();
+
+    updateDashboard();
+
+}
+
+
+
+/* =================================================
+   CHANGE PAYMENT
+================================================= */
+
+function changeSalePayment(saleId) {
+
+    const sale =
+        sales.find(
+
+            s =>
+                Number(s.id) ===
+                Number(saleId)
+
+        );
+
+
+    if (!sale) return;
+
+
+
+    const orderTotal =
+
+        Number(
+            sale.amount || 0
+        )
+
+        *
+
+        Number(
+            sale.priceAtSale || 0
+        );
+
+
+
+    const newPaid =
+        prompt(
+
+            "Enter the total amount paid for this order:",
+
+            sale.moneyPaid || 0
+
+        );
+
+
+    if (newPaid === null) return;
+
+
+
+    const paid =
+        Number(newPaid);
+
+
+
+    if (
+        isNaN(paid) ||
+        paid < 0 ||
+        paid > orderTotal
+    ) {
+
+        alert(
+            "Please enter a valid payment amount."
+        );
+
+        return;
+
+    }
+
+
+
+    sale.moneyPaid =
+        paid;
+
+
+
+    saveData();
+
+
+    displayClients();
+
+}
+
+
+
+/* =================================================
+   DELETE SALE
+================================================= */
+
+function deleteSale(saleId) {
+
+    const sale =
+        sales.find(
+
+            s =>
+                Number(s.id) ===
+                Number(saleId)
+
+        );
+
+
+    if (!sale) return;
+
+
+
+    if (
+        !confirm(
+            "Delete this carton record?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+
+    sales =
+        sales.filter(
+
+            s =>
+                Number(s.id) !==
+                Number(saleId)
+
+        );
+
+
+
+    saveData();
+
+
+    displayClients();
+
+    displayCartons();
+
+    displayStock();
+
+    updateDashboard();
+
+}
+
+
+
+/* =================================================
+   DELETE CLIENT
+================================================= */
+
+function deleteClient(clientId) {
+
+    const client =
+        clients.find(
+
+            c =>
+                Number(c.id) ===
+                Number(clientId)
+
+        );
+
+
+    if (!client) return;
+
+
+
+    if (
+
+        !confirm(
+
+            "Delete " +
+            client.name +
+            "? Their carton records will also be removed."
+
+        )
+
+    ) {
+
+        return;
+
+    }
+
+
+
+    clients =
+        clients.filter(
+
+            c =>
+                Number(c.id) !==
+                Number(clientId)
+
+        );
+
+
+
+    sales =
+        sales.filter(
+
+            sale =>
+                Number(sale.clientId) !==
+                Number(clientId)
+
+        );
+
+
+
+    saveData();
+
+
+    displayClients();
+
+    displayCartons();
+
+    displayStock();
+
+    updateClientDropdown();
+
+    updateDashboard();
+
+}
+
+
+
+/* =================================================
+   ADD CARTON TYPE
+================================================= */
+
+function addCarton() {
+
+    const name =
+
+        document
+            .getElementById(
+                "cartonType"
+            )
+            .value
+            .trim();
+
+
+    const amount = Number(
+
+        document.getElementById(
+            "cartonAmount"
+        ).value
+
+    );
+
+
+
+    if (!name) {
+
+        alert(
+            "Please enter a carton name."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !Number.isInteger(amount) ||
+        amount <= 0
+    ) {
+
+        alert(
+            "Please enter a valid whole number of cartons."
+        );
+
+        return;
+
+    }
+
+
+
+    const alreadyExists =
+        cartons.some(
+
+            carton =>
+
+                carton.name
+                    .toLowerCase() ===
+                name.toLowerCase()
+
+        );
+
+
+
+    if (alreadyExists) {
+
+        alert(
+            "This carton type already exists."
+        );
+
+        return;
+
+    }
+
+
+
+    cartons.push({
+
+        id: Date.now(),
+
+        name: name,
+
+        amount: amount
+
+    });
+
+
+
+    document.getElementById(
+        "cartonType"
+    ).value = "";
+
+
+    document.getElementById(
+        "cartonAmount"
+    ).value = "";
+
+
+
+    saveData();
+
+
+    displayCartons();
+
+    updateCartonDropdown();
+
+    displayStock();
+
+    updateDashboard();
+
+}
+
+
+
+/* =================================================
+   DISPLAY CARTONS
+================================================= */
+
+function displayCartons() {
+
+    const list =
+        document.getElementById(
+            "cartonList"
+        );
+
+
+    list.innerHTML = "";
+
+
+
+    if (cartons.length === 0) {
+
+        list.innerHTML = `
+
+            <div class="empty-stock">
+
+                <p>
+                    No carton types added yet.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    cartons.forEach(carton => {
+
+
+        const sold =
+            getSoldAmount(
+                carton.id
+            );
+
+
+        const remaining =
+            Number(carton.amount) -
+            sold;
+
+
+
+        const box =
+            document.createElement(
+                "div"
+            );
+
+
+        box.className =
+            "item-box";
+
+
+
+        box.innerHTML = `
+
+            <strong>
+                ${escapeHTML(
+                    carton.name
+                )}
+            </strong>
+
+
+            <p>
+                Total:
+                ${formatNumber(
+                    carton.amount
+                )}
+            </p>
+
+
+            <p>
+                Given:
+                ${formatNumber(
+                    sold
+                )}
+            </p>
+
+
+            <p>
+                Remaining:
+                ${formatNumber(
+                    remaining
+                )}
+            </p>
+
+
+            <button
+                onclick="deleteCarton(${carton.id})"
+            >
+                Delete Carton Type
+            </button>
+
+        `;
+
+
+
+        list.appendChild(box);
+
+    });
+
+}
+
+
+
+/* =================================================
+   DELETE CARTON
+================================================= */
+
+function deleteCarton(cartonId) {
+
+    const carton =
+        cartons.find(
+
+            c =>
+                Number(c.id) ===
+                Number(cartonId)
+
+        );
+
+
+    if (!carton) return;
+
+
+
+    const sold =
+        getSoldAmount(
+            cartonId
+        );
+
+
+
+    if (sold > 0) {
+
+        alert(
+
+            "You cannot delete this carton type because cartons have already been given to clients."
+
+        );
+
+        return;
+
+    }
+
+
+
+    if (
+        !confirm(
+            "Delete this carton type?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+
+    cartons =
+        cartons.filter(
+
+            c =>
+                Number(c.id) !==
+                Number(cartonId)
+
+        );
+
+
+
+    saveData();
+
+
+    displayCartons();
+
+    updateCartonDropdown();
+
+    displayStock();
+
+    updateDashboard();
+
+}
+
+
+
+/* =================================================
+   STOCK
+================================================= */
+
+function displayStock() {
+
+    const list =
+        document.getElementById(
+            "stockList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    let totalRemaining = 0;
+
+
+
+    if (cartons.length === 0) {
+
+        list.innerHTML = `
+
+            <div class="empty-stock">
+
+                <p>
+                    No stock added yet.
+                </p>
+
+            </div>
+
+        `;
+
+
+        document.getElementById(
+            "stockTotalCartons"
+        ).textContent = "0";
+
+
+        return;
+
+    }
+
+
+
+    cartons.forEach(carton => {
+
+
+        const sold =
+            getSoldAmount(
+                carton.id
+            );
+
+
+        const remaining =
+            Number(carton.amount) -
+            sold;
+
+
+
+        totalRemaining +=
+            remaining;
+
+
+
+        const box =
+            document.createElement(
+                "div"
+            );
+
+
+        box.className =
+            "stock-box";
+
+
+
+        box.innerHTML = `
+
+            <div class="stock-header">
+
+                <strong>
+                    ${escapeHTML(
+                        carton.name
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="stock-stats">
+
+                <div class="stock-stat">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+                        ${formatNumber(
+                            carton.amount
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="stock-stat">
+
+                    <span>
+                        Given
+                    </span>
+
+                    <strong>
+                        ${formatNumber(
+                            sold
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="stock-stat remaining">
+
+                    <span>
+                        Remaining
+                    </span>
+
+                    <strong>
+                        ${formatNumber(
+                            remaining
+                        )}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+
+        list.appendChild(box);
+
+    });
+
+
+
+    document.getElementById(
+        "stockTotalCartons"
+    ).textContent =
+
+        formatNumber(
+            totalRemaining
+        );
+
+}
+
+
+
+/* =================================================
+   CLIENT DROPDOWN
+================================================= */
+
+function updateClientDropdown() {
+
+    const select =
+        document.getElementById(
+            "clientSelect"
+        );
+
+
+    const oldValue =
+        select.value;
+
+
+
+    select.innerHTML =
+
+        '<option value="">Select a client</option>';
+
+
+
+    clients.forEach(client => {
+
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+
+        option.value =
+            client.id;
+
+
+        option.textContent =
+            client.name;
+
+
+        select.appendChild(
+            option
+        );
+
+    });
+
+
+
+    if (
+
+        clients.some(
+
+            client =>
+                String(client.id) ===
+                String(oldValue)
+
+        )
+
+    ) {
+
+        select.value =
+            oldValue;
+
+    }
+
+}
+
+
+
+/* =================================================
+   CARTON DROPDOWN
+================================================= */
+
+function updateCartonDropdown() {
+
+    const select =
+        document.getElementById(
+            "clientCartonSelect"
+        );
+
+
+    const oldValue =
+        select.value;
+
+
+
+    select.innerHTML =
+
+        '<option value="">Select a carton</option>';
+
+
+
+    cartons.forEach(carton => {
+
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+
+        option.value =
+            carton.id;
+
+
+        option.textContent =
+            carton.name;
+
+
+        select.appendChild(
+            option
+        );
+
+    });
+
+
+
+    if (
+
+        cartons.some(
+
+            carton =>
+                String(carton.id) ===
+                String(oldValue)
+
+        )
+
+    ) {
+
+        select.value =
+            oldValue;
+
+    }
+
+}
+
+
+
+/* =================================================
+   HTML SAFETY
+================================================= */
+
+function escapeHTML(value) {
+
+    return String(value || "")
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+/* =================================================
+   START APP
+================================================= */
+
+loadData();
+
+displayClients();
+
+displayCartons();
+
+displayStock();
+
+updateClientDropdown();
+
+updateCartonDropdown();
+
+updateDashboard();
+
+
+document.getElementById(
+    "cartonDate"
+).value =
+
+    new Date()
+        .toISOString()
+        .split("T")[0];
+
+</script>
+
+</body>
+</html>
+```

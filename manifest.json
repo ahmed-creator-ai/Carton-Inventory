@@ -1,0 +1,10 @@
+{
+    "name": "Carton 2",
+    "short_name": "Carton 2",
+    "description": "Client and Carton Management",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#f4f6f8",
+    "theme_color": "#1e293b",
+    "orientation": "portrait"
+}
