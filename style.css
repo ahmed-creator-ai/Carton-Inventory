@@ -1,1 +1,764 @@
-* { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: Arial, sans-serif; background: #f4f6f8; color: #222; min-height: 100vh; } /* ========================================== HEADER ========================================== */ .header { background: #1e293b; color: white; text-align: center; padding: 25px 15px; } .header h1 { font-size: 30px; margin-bottom: 6px; } .header p { font-size: 15px; opacity: 0.8; } /* ========================================== TABS ========================================== */ .tabs { display: flex; justify-content: center; gap: 8px; background: white; padding: 12px; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; } .tab-button { border: none; background: #e5e7eb; color: #374151; padding: 11px 18px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: bold; transition: 0.2s; } .tab-button:hover { background: #d1d5db; } .tab-button.active { background: #1e293b; color: white; } /* ========================================== PAGES ========================================== */ .page { display: none; width: 100%; max-width: 1000px; margin: 0 auto; padding: 25px 20px 50px; } .page.active-page { display: block; } .page h2 { font-size: 26px; margin-bottom: 20px; color: #1e293b; } /* ========================================== DASHBOARD ========================================== */ .dashboard-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; } .card { background: white; padding: 22px; border-radius: 12px; border: 1px solid #e5e7eb; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06); } .card h3 { font-size: 15px; color: #64748b; margin-bottom: 10px; } .card p { font-size: 28px; font-weight: bold; color: #1e293b; } /* ========================================== FORM BOX ========================================== */ .form-box { background: white; padding: 22px; margin-bottom: 20px; border-radius: 12px; border: 1px solid #e5e7eb; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05); } .form-box h3 { margin-bottom: 18px; color: #1e293b; font-size: 19px; } .form-box label { display: block; margin-top: 12px; margin-bottom: 6px; font-size: 14px; font-weight: bold; color: #475569; } .form-box input, .form-box select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; background: white; outline: none; } .form-box input:focus, .form-box select:focus { border-color: #1e293b; } .form-box button { margin-top: 15px; padding: 11px 18px; border: none; border-radius: 8px; background: #1e293b; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; } .form-box button:hover { background: #334155; } /* ========================================== CLIENT CARDS ========================================== */ .client-card { background: white; margin-bottom: 15px; padding: 18px; border-radius: 12px; border: 1px solid #e5e7eb; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05); } .client-card-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid #eee; } .client-card-header strong { font-size: 18px; color: #1e293b; } .client-card-header button { border: none; background: #dc2626; color: white; padding: 8px 13px; border-radius: 7px; cursor: pointer; font-weight: bold; transition: 0.2s; } .client-card-header button:hover { background: #b91c1c; } /* ========================================== CLIENT CARTONS ========================================== */ .client-cartons { padding-top: 12px; } .client-cartons > p { color: #64748b; font-size: 14px; } .client-carton { display: grid; grid-template-columns: 1fr auto auto; gap: 15px; align-items: center; background: #f8fafc; padding: 11px 13px; margin-top: 8px; border-radius: 8px; } .client-carton span { color: #475569; } .client-carton strong { color: #1e293b; } /* ========================================== PAYMENT BOX ========================================== */ .client-payment-box { margin-top: 18px; padding: 16px; background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0; } .client-payment-box h4 { font-size: 17px; margin-bottom: 12px; color: #1e293b; } .client-payment-box p { display: flex; justify-content: space-between; padding: 7px 0; color: #64748b; border-bottom: 1px solid #e5e7eb; } .client-payment-box p:last-of-type { border-bottom: none; } .client-payment-box p strong { color: #1e293b; } .payment-input { display: flex; gap: 10px; margin-top: 14px; } .payment-input input { flex: 1; min-width: 0; padding: 11px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; outline: none; } .payment-input input:focus { border-color: #1e293b; } .payment-input button { border: none; background: #15803d; color: white; padding: 11px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; } .payment-input button:hover { background: #166534; } /* ========================================== CARTON ITEMS ========================================== */ .item-box { background: white; padding: 18px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #e5e7eb; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05); display: flex; justify-content: space-between; align-items: center; gap: 15px; } .item-box strong { font-size: 18px; color: #1e293b; } .item-box p { margin-top: 6px; color: #64748b; font-size: 14px; } .item-box button { flex-shrink: 0; border: none; background: #dc2626; color: white; padding: 9px 13px; border-radius: 7px; cursor: pointer; font-weight: bold; } .item-box button:hover { background: #b91c1c; } /* ========================================== STOCK TOTAL CARD ========================================== */ .stock-total-card { margin-bottom: 20px; text-align: center; background: #1e293b; } .stock-total-card h3 { color: white; opacity: 0.85; } .stock-total-card p { color: white; font-size: 32px; } /* ========================================== STOCK ========================================== */ .stock-box { background: white; padding: 20px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #e5e7eb; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05); } .stock-header { padding-bottom: 15px; border-bottom: 1px solid #eee; } .stock-header strong { font-size: 20px; color: #1e293b; } .stock-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; } .stock-stat { background: #f8fafc; padding: 14px; border-radius: 8px; text-align: center; } .stock-stat span { display: block; color: #64748b; font-size: 13px; margin-bottom: 6px; } .stock-stat strong { font-size: 20px; color: #1e293b; } .stock-stat.remaining strong { color: #15803d; } .stock-price { display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; } .stock-price span { color: #64748b; } .stock-price strong { color: #1e293b; } /* ========================================== EMPTY STATES ========================================== */ .empty-stock { background: white; text-align: center; padding: 40px 20px; border-radius: 12px; border: 1px solid #e5e7eb; } .empty-stock p { font-size: 18px; font-weight: bold; color: #475569; margin-bottom: 8px; } .empty-stock small { color: #94a3b8; } /* ========================================== RESTORE BUTTON ========================================== */ .restore-button { background: #15803d !important; } .restore-button:hover { background: #166534 !important; } /* ========================================== MOBILE / IPHONE ========================================== */ @media (max-width: 600px) { .header { padding: 20px 12px; } .header h1 { font-size: 25px; } .header p { font-size: 13px; } /* TABS */ .tabs { gap: 5px; padding: 9px 5px; overflow-x: auto; justify-content: flex-start; -webkit-overflow-scrolling: touch; } .tab-button { padding: 10px 13px; font-size: 13px; white-space: nowrap; flex-shrink: 0; } /* PAGES */ .page { padding: 20px 12px 40px; } .page h2 { font-size: 23px; } /* DASHBOARD */ .dashboard-cards { grid-template-columns: 1fr; gap: 12px; } .card { padding: 18px; } .card p { font-size: 25px; } /* FORMS */ .form-box { padding: 17px; } /* CLIENT */ .client-card { padding: 15px; } .client-card-header { align-items: center; } .client-carton { grid-template-columns: 1fr; gap: 5px; } /* PAYMENTS */ .payment-input { flex-direction: column; } .payment-input input, .payment-input button { width: 100%; } /* CARTONS */ .item-box { align-items: flex-start; } .item-box button { padding: 8px 10px; } /* STOCK */ .stock-total-card p { font-size: 27px; } .stock-stats { grid-template-columns: 1fr; } .stock-price { flex-direction: column; gap: 5px; } } /* ========================================== VERY SMALL PHONES ========================================== */ @media (max-width: 380px) { .header h1 { font-size: 23px; } .tab-button { padding: 9px 10px; font-size: 12px; } .page { padding-left: 10px; padding-right: 10px; } .form-box { padding: 14px; } .client-card, .item-box, .stock-box { padding: 14px; } .stock-total-card p { font-size: 24px; } }
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+    min-height: 100vh;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.header {
+    background: #1e293b;
+    color: white;
+    text-align: center;
+    padding: 25px 15px;
+    width: 100%;
+}
+
+.header h1 {
+    font-size: 30px;
+    margin-bottom: 6px;
+}
+
+.header p {
+    font-size: 15px;
+    opacity: 0.8;
+}
+
+/* ==========================================
+   TABS
+========================================== */
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    background: white;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    max-width: 100%;
+}
+
+.tab-button {
+    border: none;
+    background: #e5e7eb;
+    color: #374151;
+    padding: 11px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+
+.tab-button:hover {
+    background: #d1d5db;
+}
+
+.tab-button.active {
+    background: #1e293b;
+    color: white;
+}
+
+/* ==========================================
+   PAGES
+========================================== */
+
+.page {
+    display: none;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 25px 20px 50px;
+}
+
+.page.active-page {
+    display: block;
+}
+
+.page h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #1e293b;
+}
+
+/* ==========================================
+   DASHBOARD
+========================================== */
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    min-width: 0;
+    max-width: 100%;
+}
+
+.card h3 {
+    font-size: 15px;
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1e293b;
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   FORM BOX
+========================================== */
+
+.form-box {
+    background: white;
+    padding: 22px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.form-box h3 {
+    margin-bottom: 18px;
+    color: #1e293b;
+    font-size: 19px;
+}
+
+.form-box label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #475569;
+}
+
+.form-box input,
+.form-box select,
+.form-box textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    background: white;
+    outline: none;
+}
+
+.form-box input:focus,
+.form-box select:focus,
+.form-box textarea:focus {
+    border-color: #1e293b;
+}
+
+.form-box button {
+    margin-top: 15px;
+    padding: 11px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #1e293b;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    max-width: 100%;
+}
+
+.form-box button:hover {
+    background: #334155;
+}
+
+/* ==========================================
+   CLIENT CARDS
+========================================== */
+
+.client-card {
+    background: white;
+    margin-bottom: 15px;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.client-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+    min-width: 0;
+}
+
+.client-card-header strong {
+    font-size: 18px;
+    color: #1e293b;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.client-card-header button {
+    border: none;
+    background: #dc2626;
+    color: white;
+    padding: 8px 13px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+
+.client-card-header button:hover {
+    background: #b91c1c;
+}
+
+/* ==========================================
+   CLIENT CARTONS
+========================================== */
+
+.client-cartons {
+    padding-top: 12px;
+    width: 100%;
+    min-width: 0;
+}
+
+.client-cartons > p {
+    color: #64748b;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.client-carton {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 15px;
+    align-items: center;
+    background: #f8fafc;
+    padding: 11px 13px;
+    margin-top: 8px;
+    border-radius: 8px;
+    width: 100%;
+    min-width: 0;
+}
+
+.client-carton span,
+.client-carton strong {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.client-carton span {
+    color: #475569;
+}
+
+.client-carton strong {
+    color: #1e293b;
+}
+
+/* ==========================================
+   PAYMENT BOX
+========================================== */
+
+.client-payment-box {
+    margin-top: 18px;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.client-payment-box h4 {
+    font-size: 17px;
+    margin-bottom: 12px;
+    color: #1e293b;
+}
+
+.client-payment-box p {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 7px 0;
+    color: #64748b;
+    border-bottom: 1px solid #e5e7eb;
+    min-width: 0;
+}
+
+.client-payment-box p:last-of-type {
+    border-bottom: none;
+}
+
+.client-payment-box p strong {
+    color: #1e293b;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.payment-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.payment-input input {
+    flex: 1;
+    min-width: 0;
+    max-width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.payment-input input:focus {
+    border-color: #1e293b;
+}
+
+.payment-input button {
+    border: none;
+    background: #15803d;
+    color: white;
+    padding: 11px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.payment-input button:hover {
+    background: #166534;
+}
+
+/* ==========================================
+   CARTON ITEMS
+========================================== */
+
+.item-box {
+    background: white;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.item-box > div {
+    min-width: 0;
+}
+
+.item-box strong {
+    font-size: 18px;
+    color: #1e293b;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.item-box p {
+    margin-top: 6px;
+    color: #64748b;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.item-box button {
+    flex-shrink: 0;
+    border: none;
+    background: #dc2626;
+    color: white;
+    padding: 9px 13px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.item-box button:hover {
+    background: #b91c1c;
+}
+
+/* ==========================================
+   STOCK TOTAL CARD
+========================================== */
+
+.stock-total-card {
+    margin-bottom: 20px;
+    text-align: center;
+    background: #1e293b;
+}
+
+.stock-total-card h3 {
+    color: white;
+    opacity: 0.85;
+}
+
+.stock-total-card p {
+    color: white;
+    font-size: 32px;
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   STOCK
+========================================== */
+
+.stock-box {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.stock-header {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    min-width: 0;
+}
+
+.stock-header strong {
+    font-size: 20px;
+    color: #1e293b;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.stock-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.stock-stat {
+    background: #f8fafc;
+    padding: 14px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 0;
+}
+
+.stock-stat span {
+    display: block;
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.stock-stat strong {
+    font-size: 20px;
+    color: #1e293b;
+    overflow-wrap: anywhere;
+}
+
+.stock-stat.remaining strong {
+    color: #15803d;
+}
+
+.stock-price {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    min-width: 0;
+}
+
+.stock-price span,
+.stock-price strong {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.stock-price span {
+    color: #64748b;
+}
+
+.stock-price strong {
+    color: #1e293b;
+}
+
+/* ==========================================
+   EMPTY STATES
+========================================== */
+
+.empty-stock {
+    background: white;
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    width: 100%;
+    max-width: 100%;
+}
+
+.empty-stock p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.empty-stock small {
+    color: #94a3b8;
+}
+
+/* ==========================================
+   RESTORE BUTTON
+========================================== */
+
+.restore-button {
+    background: #15803d !important;
+}
+
+.restore-button:hover {
+    background: #166534 !important;
+}
+
+/* ==========================================
+   GENERAL OVERFLOW PROTECTION
+========================================== */
+
+img,
+video,
+iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+input,
+select,
+button,
+textarea {
+    max-width: 100%;
+}
+
+/* ==========================================
+   MOBILE / IPHONE
+========================================== */
+
+@media (max-width: 600px) {
+
+    .header {
+        padding: 20px 12px;
+    }
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .header p {
+        font-size: 13px;
+    }
+
+    /* TABS */
+
+    .tabs {
+        gap: 5px;
+        padding: 9px 5px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tab-button {
+        padding: 10px 13px;
+        font-size: 13px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* PAGES */
+
+    .page {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px 12px 40px;
+    }
+
+    .page h2 {
+        font-size: 23px;
+        overflow-wrap: anywhere;
+    }
+
+    /* DASHBOARD */
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .card p {
+        font-size: 25px;
+    }
+
+    /* FORMS */
+
+    .form-box {
+        padding: 17px;
+    }
+
+    .form-box input,
+    .form-box select,
+    .form-box textarea {
+        width: 100%;
+    }
+
+    /* CLIENT */
+
+    .client-card {
+        padding: 15px;
+    }
+
+    .client-card-header {
+        align-items: center;
+    }
+
+    .client-carton {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+
+    /* PAYMENTS */
+
+    .payment-input {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .payment-input input,
+    .payment-input button {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .client-payment-box p {
+        flex-wrap: wrap;
+    }
+
+    /* CARTONS */
+
+    .item-box {
+        align-items: flex-start;
+    }
+
+    .item-box button {
+        padding: 8px 10px;
+    }
+
+    /* STOCK */
+
+    .stock-total-card p {
+        font-size: 27px;
+    }
+
+    .stock-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stock-price {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+/* ==========================================
+   VERY SMALL PHONES
+========================================== */
+
+@media (max-width: 380px) {
+
+    .header h1 {
+        font-size: 23px;
+    }
+
+    .tab-button {
+        padding: 9px 10px;
+        font-size: 12px;
+    }
+
+    .page {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .form-box {
+        padding: 14px;
+    }
+
+    .client-card,
+    .item-box,
+    .stock-box {
+        padding: 14px;
+    }
+
+    .stock-total-card p {
+        font-size: 24px;
+    }
+}
+```
